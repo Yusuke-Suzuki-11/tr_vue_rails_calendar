@@ -12,28 +12,19 @@
 </template>
 
 <script>
-import axios from "axios";
 import CalendarDetails from "./CalendarDetails.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "CustomCalendar",
   components: {
     CalendarDetails,
   },
-  data: () => ({
-    events: [],
-  }),
+  computed: {
+    ...mapGetters("events", ["events"]),
+  },
   methods: {
-    fetchEvents() {
-      axios
-        .get("http://localhost:3000/events")
-        .then((response) => {
-          this.events = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    ...mapActions("events", ["fetchEvents"]),
   },
 };
 </script>
